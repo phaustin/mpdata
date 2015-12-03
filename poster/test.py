@@ -1,19 +1,21 @@
+from __future__ import print_function
 import numpy as np 
 import subprocess
-from scipy.io.netcdf import netcdf_file
+from netCDF4 import Dataset
 import time
 import json as js
 
 times = {}
 sizes = np.array([64,128,256,512,1024,2048,4096])
+sizes=sizes[:4]
 
-for lang in ('cpp','for','pyt') :
+for lang in ('pyt',) :
   times[lang] = []
   for n in sizes :
-    print 'lang: ', lang, ' size: ', n, 'x', n
+    print('lang: ', lang, ' size: ', n, 'x', n)
     # simulation parameters (via the netCDF global attributes)
     ncfile = 'data-' + lang + '.nc'
-    nc = netcdf_file(ncfile, mode='w')
+    nc = Dataset(ncfile, mode='w')
     nc.np = 1
     nc.nx = n
     nc.ny = n
@@ -42,4 +44,7 @@ for lang in ('cpp','for','pyt') :
     #  print lang, nc.variables['psi'][t,:,:]
 
 js.dump(times, open('times.js','w'))
-js.dump(list(sizes**2), open('sizes.js','w'))
+out=sizes**2.
+out=list(out)
+print(out)
+js.dump(out, open('sizes.js','w'))

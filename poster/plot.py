@@ -1,14 +1,14 @@
-from pylab import *
+from matplotlib import pyplot as plt
 import json as js
 
 times = js.load(open('times.js'))
 sizes = js.load(open('sizes.js'))
 
-figure(1)
-plot(
-  sizes, times['cpp'], 
-  sizes, times['for'], 
-  sizes, times['pyt']
-)
-legend(['C++','FORTRAN','Python'])
-show()
+print(times)
+print(sizes)
+
+plt.close('all')
+fig, ax=plt.subplots(1,1)
+ax.plot(sizes, times['pyt'],label='python')
+ax.legend()
+plt.show()

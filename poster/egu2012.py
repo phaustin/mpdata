@@ -2,7 +2,7 @@
 import numpy as N
 
 # I/O: netCDF-4 (via Scientific Python)
-from Scientific.IO.NetCDF import NetCDFFile
+from netCDF4 import Dataset
 
 # for handling command line arguments
 import sys
@@ -52,7 +52,7 @@ if (len(sys.argv) != 2) :
   raise Exception('expecting 1 argument - a netCDF file name')
 
 # opening and reading-in data from the netCDF file
-nf = NetCDFFile(sys.argv[1], 'r+')
+nf = Dataset(sys.argv[1], 'r+')
 nx = int(nf.nx)
 ny = int(nf.ny)
 no = int(nf.no)
